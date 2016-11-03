@@ -9,10 +9,11 @@ html {
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
   background-image: url('/images/hamilton-island.jpg');
-  background-repeat: no-repeat;
+
   background-size: 100%;
   position: relative;
   min-height: 100%;
+  font-size: 16px;
 }
 body {
   margin: auto;
@@ -21,6 +22,20 @@ body {
 
 #logo {
   margin-top: 20px;
+}
+#toplinks {
+  font-size: 16px;
+  text-align: right;
+  float: right;
+  margin-top: 20px;
+}
+
+#toplinks a {
+  padding-right: 5px;
+}
+
+#signout {
+  display: inline;
 }
 
 footer {
@@ -53,10 +68,10 @@ summary {
 }
 
 section {
-  margin-top: 10%;
-  padding: 20px;
+  margin-top: 5%;
+  padding: 30px;
   background-color: white;
-  opacity: 0.7;
+  opacity: 0.9;
   color: black;
 }
 
@@ -1110,7 +1125,7 @@ th {
           box-sizing: border-box;
 }
 html {
-  font-size: 10px;
+  font-size: 14px;
 
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }

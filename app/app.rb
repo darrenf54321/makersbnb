@@ -2,6 +2,7 @@ ENV["RACK_ENV"] ||= "development"
 
 require 'sinatra/base'
 require 'sinatra/flash'
+require 'sinatra/partial'
 require_relative 'models/space'
 require_relative 'models/user'
 
@@ -11,15 +12,25 @@ class BnB < Sinatra::Base
 use Rack::MethodOverride
 
   enable :sessions
+  register Sinatra::Flash
+  register Sinatra::Partial
   set :session_secret, 'super secret'
+  set :partial_template_engine, :erb
+  enable :partial_underscores
 
-    register Sinatra::Flash
-
+<<<<<<< HEAD
 
   def current_user
     @current_user ||= User.get(session[:user_id])
   end
 
+=======
+  helpers do
+    def current_user
+      @current_user ||= User.get(session[:user_id])
+    end
+  end
+>>>>>>> dec532dd49deb8b4dcece610417e250476b08bd0
 
   get '/' do
     erb :'home'

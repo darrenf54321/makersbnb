@@ -1,0 +1,15 @@
+<div id="toplinks">
+  <% if current_user %>
+  <span>Welcome, <%= current_user.first_name %>&nbsp;<span>
+  <a href="/spaces">Spaces</a>
+  <a href="/requests">Requests</a>
+  <form id="signout" method='post' action='/sessions'>
+    <input type='hidden' name='_method' value='delete'>
+    <input type='submit' value='Sign out'>
+  </form>
+
+  <% else %>
+  <a href="/">About</a>
+  <a href="/sessions/new">Login</a>
+  <% end %>
+</div>
