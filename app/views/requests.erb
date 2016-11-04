@@ -5,6 +5,7 @@
     <p class="space_name">You have requested to book "<%= booking.space.name %>"</p>
     <p>From <%= booking.check_in.strftime("%-d %B %Y") %> to <%= booking.check_out.strftime("%-d %B %Y") %></p>
     <p> Your booking is <%= booking.status %> </p>
+    <p> Total paid: $<%= booking.price %> </p>
   </li>
 <% end %>
 </ul>
@@ -20,6 +21,7 @@
         <a href="requests/received/<%= booking.id %>" class="space_moreinfo" id="received_request_<%= booking.id %>">
           <p class="space_name"><%= booking.user.first_name %> <%= booking.user.last_name %> has requested to book <%= booking.space.name %>.</p>
           <p>From <%= booking.check_in.strftime("%-d %B %Y") %> to <%= booking.check_out.strftime("%-d %B %Y") %></p>
+          <p> Total paid: $<%= booking.price %> </p>
         </a>
       </li>
     <% end %>

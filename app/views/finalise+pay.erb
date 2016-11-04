@@ -1,0 +1,18 @@
+<h1>Finalise and pay for your booking!</h1>
+
+<h2>You are booking: <%= @space.name %></h2>
+<h2>You are booking from <%= @check_in.strftime("%-d %B %Y") %> to <%= @check_out.strftime("%-d %B %Y") %>.</h2>
+
+<form action="/charge" method="post" class="payment">
+  <article>
+    <label class="amount">
+      <h2><span>Amount: $<%= @price %></span></h2>
+    </label>
+  </article>
+
+  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="<%= settings.publishable_key %>"
+          data-description="Pay for space"
+          data-amount="<%= @price * 100 %>"
+          data-locale="auto"></script>
+</form>

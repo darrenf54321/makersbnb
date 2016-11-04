@@ -16,5 +16,10 @@ class Space
         :available_to.gte => available_to)
   end
 
+  def calculate_price(check_in, check_out)
+    due = 0
+    (check_in...check_out).each {|night| due += self.price }
+    return due
+  end
 
 end

@@ -150,7 +150,7 @@ class BnB < Sinatra::Base
 
   post '/request/new' do
     session[:check_in] = Date.parse(params[:check_in])
-    session[:check_out] = Date.parse(params[:check_in])
+    session[:check_out] = Date.parse(params[:check_out])
     session[:space_id] = params[:space_id]
     redirect '/request/finalise'
   end
@@ -164,26 +164,15 @@ class BnB < Sinatra::Base
     @check_in = session[:check_in]
     @check_out = session[:check_out]
     @space = Space.get(session[:space_id])
-    erb :finalise
-  end
-
-  get '/request/confirmation' do
-    Booking.create(check_in: session[:check_in],
-                   check_out: session[:check_out],
-                   status: "unconfirmed",
-                   space: Space.get(session[:space_id]),
-                   user: current_user)
-    redirect '/requests'
+    session[:price] = @space.calculate_price(@check_in, @check_out)
+    @price = session[:price]
+    erb :'finalise+pay'
   end
 
   # -- PAYMENTS --
 
-  get '/payment' do
-    erb(:payment)
-  end
-
   post '/charge' do
-    @amount = 500
+    @amount = session[:price]
 
     customer = Stripe::Customer.create(
       :email         => 'customer@example.com',
@@ -197,10 +186,18 @@ class BnB < Sinatra::Base
       :customer      => customer.id
     )
 
-    erb :charge
+    Booking.create(check_in: session[:check_in],
+                   check_out: session[:check_out],
+                   status: "unconfirmed",
+                   space: Space.get(session[:space_id]),
+                   user: current_user,
+                   price: @amount
+                   )
+    redirect 'payment/successful'
   end
 
-  get 'payment/successful' do
+  get '/payment/successful' do
+    @price = session[:price]
     erb :charge
   end
 
