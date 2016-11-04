@@ -4,11 +4,10 @@
 <% @user.spaces.each do |space| %>
   <% space.bookings.each do |booking| %>
     <% if booking.confirmed? %>
-      <li>
+      <li class="space_list_item">
         <a href="requests/received/<%= booking.id %>" id="received_request_<%= booking.id %>">
-          <p><%= booking.user.first_name %> <%= booking.user.last_name %> is booked in at <%= booking.space.name %>.</p>
-          <%= booking.check_in %>
-          <%= booking.check_out %>
+          <p class="space_name"><%= booking.user.first_name %> <%= booking.user.last_name %> is booked in at <%= booking.space.name %>.</p>
+          <p>From <%= booking.check_in.strftime("%-d %B %Y") %> to <%= booking.check_out.strftime("%-d %B %Y") %>.</p>
         </a>
       </li>
     <% end %>
@@ -25,9 +24,7 @@
       <li>
         <a href="requests/received/<%= booking.id %>" id="received_request_<%= booking.id %>">
           <p><%= booking.user.first_name %> <%= booking.user.last_name %> at <%= booking.space.name %>.</p>
-          <%= booking.check_in %>
-          <%= booking.check_out %>
-        </a>
+          <p>From <%= booking.check_in.strftime("%-d %B %Y") %> to <%= booking.check_out.strftime("%-d %B %Y") %>.</p>
       </li>
     <% end %>
   <% end %>
