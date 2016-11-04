@@ -4,8 +4,10 @@ require 'sinatra/base'
 require_relative 'data_mapper_setup'
 require 'sinatra/flash'
 require 'sinatra/partial'
+require 'pony'
 require_relative 'models/space'
 require_relative 'models/user'
+require_relative 'models/email'
 
 class BnB < Sinatra::Base
 
@@ -44,9 +46,9 @@ class BnB < Sinatra::Base
                      email: params[:email],
                      password: params[:password],
                      password_confirmation: params[:password_confirmation])
-
       if @user.save
         session[:user_id] = @user.id
+        Email.send_email(@user, erb(:'emails/registration', layout: false))
         erb :'welcome'
       else
         flash.now[:errors] = ['Ooops, your password did not match - please try again']
@@ -157,6 +159,8 @@ class BnB < Sinatra::Base
   get '/bookings/confirm/:id' do
     @booking = Booking.get(params[:id])
     @booking.update(:status => "confirmed")
+    @guest = @booking.user
+    Email.send_email(@guest, erb(:'emails/booking', layout: false))
     redirect '/bookings'
   end
 
