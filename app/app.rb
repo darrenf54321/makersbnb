@@ -5,19 +5,26 @@ require_relative 'data_mapper_setup'
 require 'sinatra/flash'
 require 'sinatra/partial'
 require 'pony'
+require 'envyable'
+require 'stripe'
 require_relative 'models/space'
 require_relative 'models/user'
 require_relative 'models/email'
 
 class BnB < Sinatra::Base
-
   use Rack::MethodOverride
   enable :sessions
+  set :session_secret, 'super secret'
   register Sinatra::Flash
   register Sinatra::Partial
-  set :session_secret, 'super secret'
   set :partial_template_engine, :erb
   enable :partial_underscores
+
+# --Stripe information + setting private keys with Envyable --
+  Envyable.load('config/env.yml', 'test')
+  set :publishable_key, ENV['PUBLISHABLE_KEY_TEST']
+  set :secret_key, ENV['SECRET_KEY_TEST']
+  Stripe.api_key = settings.secret_key
 
   def current_user
     @current_user ||= User.get(session[:user_id])
@@ -167,6 +174,38 @@ class BnB < Sinatra::Base
                    space: Space.get(session[:space_id]),
                    user: current_user)
     redirect '/requests'
+  end
+
+  # -- PAYMENTS --
+
+  get '/payment' do
+    erb(:payment)
+  end
+
+  post '/charge' do
+    @amount = 500
+
+    customer = Stripe::Customer.create(
+      :email         => 'customer@example.com',
+      :source        => params[:stripeToken]
+    )
+
+    charge = Stripe::Charge.create(
+      :amount        => @amount,
+      :description   => 'Sinatra Charge',
+      :currency      => 'usd',
+      :customer      => customer.id
+    )
+
+    erb :charge
+  end
+
+  get 'payment/successful' do
+    erb :charge
+  end
+
+  error Stripe::CardError do
+    env['sinatra.error'].message
   end
 
   # -- BOOKINGS --
