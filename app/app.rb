@@ -172,7 +172,7 @@ class BnB < Sinatra::Base
   # -- PAYMENTS --
 
   post '/charge' do
-    @amount = session[:price]
+    @amount = (session[:price]*100)
 
     customer = Stripe::Customer.create(
       :email         => 'customer@example.com',
