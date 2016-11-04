@@ -1,10 +1,9 @@
 <h1>Requests I've made</h1>
 <ul>
 <% @user.bookings.each do |booking| %>
-  <li>
-    <%= booking.space.name %>
-    <%= booking.check_in %>
-    <%= booking.check_out %>
+  <li class="space_list_item">
+    <p class="space_name">You have requested to book "<%= booking.space.name %>"</p>
+    <p>From <%= booking.check_in.strftime("%-d %B %Y") %> to <%= booking.check_out.strftime("%-d %B %Y") %></p>
     <p> Your booking is <%= booking.status %> </p>
   </li>
 <% end %>
@@ -17,11 +16,10 @@
 <% @user.spaces.each do |space| %>
   <% space.bookings.each do |booking| %>
     <% if booking.unconfirmed? %>
-      <li>
-        <a href="requests/received/<%= booking.id %>" id="received_request_<%= booking.id %>">
-          <p><%= booking.user.first_name %> <%= booking.user.last_name %> has requested to book <%= booking.space.name %>.</p>
-          <%= booking.check_in %>
-          <%= booking.check_out %>
+      <li class="space_list_item">
+        <a href="requests/received/<%= booking.id %>" class="space_moreinfo" id="received_request_<%= booking.id %>">
+          <p class="space_name"><%= booking.user.first_name %> <%= booking.user.last_name %> has requested to book <%= booking.space.name %>.</p>
+          <p>From <%= booking.check_in.strftime("%-d %B %Y") %> to <%= booking.check_out.strftime("%-d %B %Y") %></p>
         </a>
       </li>
     <% end %>
