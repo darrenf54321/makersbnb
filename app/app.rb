@@ -159,6 +159,8 @@ class BnB < Sinatra::Base
   get '/bookings/confirm/:id' do
     @booking = Booking.get(params[:id])
     @booking.update(:status => "confirmed")
+    @guest = @booking.user
+    Email.send_email(@guest, erb(:'emails/booking', layout: false))
     redirect '/bookings'
   end
 
