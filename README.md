@@ -11,8 +11,6 @@ USER STORIES:
 
   As a User, So I can ensure the details of my requested booking are correct, I should be able to see my requested details in full.
 
-  As a User, So I can ensure the details of my requested booking are correct, I should be able to see my requested details in full.
-
   As a Host, So my space is available for rent, I can list a single space.
 
   As a User, So I can see what properties are available that meet my criteria, I should be able to view available listings.
@@ -41,4 +39,4 @@ RSpec was utilised for testing purposes
 
 
 AUTHORS:
-Francis Maxwell, Michael Barry, Michal Klesinski, Brian Patterson, Iain Kinnish, Darren Firth
+Frances Maxwell, Michael Barry, Michal Klesinski, Brian Patterson, Iain Kinnish, Darren Firth
