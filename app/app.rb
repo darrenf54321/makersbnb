@@ -48,6 +48,7 @@ class BnB < Sinatra::Base
 
       if @user.save
         session[:user_id] = @user.id
+        EmailReg.call(@user)
         erb :'welcome'
       else
         flash.now[:errors] = ['Ooops, your password did not match - please try again']
