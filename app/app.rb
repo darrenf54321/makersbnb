@@ -4,9 +4,10 @@ require 'sinatra/base'
 require_relative 'data_mapper_setup'
 require 'sinatra/flash'
 require 'sinatra/partial'
+require 'rest-client'
 require_relative 'models/space'
 require_relative 'models/user'
-require_relative 'models/email_reg'
+require_relative 'models/email'
 
 class BnB < Sinatra::Base
 
@@ -45,10 +46,9 @@ class BnB < Sinatra::Base
                      email: params[:email],
                      password: params[:password],
                      password_confirmation: params[:password_confirmation])
-
       if @user.save
         session[:user_id] = @user.id
-        EmailReg.call(@user)
+        Email.send_user_registration(@user)
         erb :'welcome'
       else
         flash.now[:errors] = ['Ooops, your password did not match - please try again']
