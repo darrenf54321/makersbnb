@@ -8,8 +8,7 @@ ruby '2.3.1'
   gem 'data_mapper'
   gem 'sinatra-flash'
   gem 'sinatra-partial'
-  gem 'mailgun'
-  gem 'mailgun-ruby'
+  gem 'pony'
 
 group :test do
   gem 'rspec'
