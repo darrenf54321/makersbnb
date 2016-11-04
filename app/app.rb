@@ -4,7 +4,6 @@ require 'sinatra/base'
 require_relative 'data_mapper_setup'
 require 'sinatra/flash'
 require 'sinatra/partial'
-#require 'rest-client'
 require 'pony'
 require_relative 'models/space'
 require_relative 'models/user'
@@ -49,25 +48,7 @@ class BnB < Sinatra::Base
                      password_confirmation: params[:password_confirmation])
       if @user.save
         session[:user_id] = @user.id
-
-        # Pony.options = {
-        #   :subject => "registration",
-        #   :body => "Welcome",
-        #   :via => :smtp,
-        #   :via_options => {
-        #     :address              => 'smtp.gmail.com',
-        #     :port                 => '587',
-        #     :enable_starttls_auto => true,
-        #     :user_name            => 'airbnbtest54321@gmail.com',
-        #     :password             => 'wrinkles',
-        #     :authentication       => :plain,
-        #     :domain               => "localhost.localdomain"
-        #   }
-        # }
-        # Pony.mail :to => @user.email,
-        # :from => 'Makers AirBnB',
-        # :subject => 'Thank you for registering and welcome to Makers AirBnB!'
-
+        Email.send_email(@user, erb(:'emails/registration', layout: false))
         erb :'welcome'
       else
         flash.now[:errors] = ['Ooops, your password did not match - please try again']
