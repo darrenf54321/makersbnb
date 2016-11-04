@@ -37,7 +37,7 @@ USER STORIES:
 
 
 TESTING:
-RSpec and Rspec/Capybara were utilised for testing purposes
+RSpec was utilised for testing purposes
 
 
 AUTHORS:
