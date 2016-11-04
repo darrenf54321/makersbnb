@@ -1,21 +1,29 @@
 <body>
   <h1>Add Space</h1>
   <form action="/spaces" method="post">
-    <label for="name">
-      Name: <input type="text" name="name">
-    </label>
-    <label for="description">
-      Description: <input type="text" name="description">
-    </label>
-    <label for="price">
-      Price: <input type="number" name="price">
-    </label>
-    <label for="available_from">
-      Date From: <input type="text" name="available_from">
-    </label>
-    <label for="available_to">
-      Date To: <input type="text" name="available_to">
-    </label>
+    <div class="form-group">
+      <label for="name">
+        Name: <input type="text" class="form-control" name="name">
+      </label>
+    </div>
+    <div class="form-group">
+      <label for="description">
+        Description: <textarea type="text" class="form-control" name="description" rows="3"></textarea>
+      </label>
+    </div>
+    <div class="form-group">
+      <label for="price">
+        Price: <input type="number" class="form-control" name="price">
+      </label>
+    </div>
+    <div class="form-group">
+      <label for="available_from">
+        Available from: <input type="text" id="available_from" name="available_from">
+      </label>
+      <label for="available_to">
+        to: <input type="text" id="available_to" name="available_to">
+      </label>
+    </div>
     <input type="submit" value="List my Space">
   </form>
 </body>

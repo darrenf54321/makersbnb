@@ -4,7 +4,6 @@ describe 'View Listing' do
 
   before(:each) do
     create_user_spaces
-
   end
 
   it "can view a list of all available properties" do

@@ -1,0 +1,29 @@
+<body>
+  <h1>Edit Space</h1>
+  <form action="/spaces/update/<%= @space.id %>" method="post">
+    <div class="form-group">
+      <label for="name">
+        Name: <input type="text" class="form-control" name="name" value="<%= @space.name %>">
+      </label>
+    </div>
+    <div class="form-group">
+      <label for="description">
+        Description: <textarea type="text" class="form-control" name="description" rows="3"><%= @space.description %></textarea>
+      </label>
+    </div>
+    <div class="form-group">
+      <label for="price">
+        Price: <input type="number" class="form-control" name="price" value="<%= @space.price %>">
+      </label>
+    </div>
+    <div class="form-group">
+      <label for="available_from">
+        Available from: <input type="text" name="available_from" id="available_from" value="<%= @space.available_from %>">
+      </label>
+      <label for="available_to">
+        to: <input type="text" name="available_to" id="available_to" value="<%= @space.available_to %>">
+      </label>
+    </div>
+    <input type="submit" value="Submit updated details">
+  </form>
+</body>

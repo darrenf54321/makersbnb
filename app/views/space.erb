@@ -17,3 +17,6 @@
   </div>
   <button type="submit" class="btn btn-primary">Request booking</button>
 </form>
+<% if @space.user == @user %>
+<div id="own_property">You own this property. <a href="/spaces/edit/<%= @space.id %>">Edit listing</a></div>
+<% end %>

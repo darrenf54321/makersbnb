@@ -91,17 +91,27 @@ class BnB < Sinatra::Base
 
   post '/spaces' do
     if current_user
-    Space.create(name: params[:name],
-                 description: params[:description],
-                 price: params[:price],
-                 available_from: params[:available_from],
-                 available_to: params[:available_to],
-                 user: current_user)
-    redirect '/spaces'
-  else
-  flash.now[:errors] = ['Please register or login to list a space']
-    erb :'register'
+      Space.create(name: params[:name],
+                     description: params[:description],
+                     price: params[:price],
+                     available_from: params[:available_from],
+                     available_to: params[:available_to],
+                     user: current_user)
+      redirect '/spaces'
+    else
+      flash.now[:errors] = ['Please register or login to list a space']
+      erb :'register'
+    end
   end
+
+  post '/spaces/update/:id' do
+    @space = Space.get(params[:id])
+    @space.update(:name => params[:name],
+                 :description => params[:description],
+                 :price => params[:price],
+                 :available_from => params[:available_from],
+                 :available_to => params[:available_to])
+    redirect '/spaces'
   end
 
   get '/spaces/filter_dates' do
@@ -118,6 +128,11 @@ class BnB < Sinatra::Base
   get '/spaces/:id' do
     @space = Space.get(params[:id])
     erb :'space'
+  end
+
+  get '/spaces/edit/:id' do
+    @space = Space.get(params[:id])
+    erb :'spaces/edit'
   end
 
 # --- REQUESTS ----

@@ -21,14 +21,14 @@ def create_user_spaces
                user: host)
 
   Space.create(name: 'New Space',
-               description: 'have fun at our BnB',
+               description: 'have an okay time at our BnB',
                price: "50",
                available_from: '2017/01/01',
                available_to: '2017/07/07',
                user: host)
 
   Space.create(name: 'Old Space',
-              description: 'have fun at our BnB',
+              description: 'have a miserable time at our BnB',
               price: "60",
               available_from: '2015/01/01',
               available_to: '2015/07/07',
