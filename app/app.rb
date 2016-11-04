@@ -6,6 +6,7 @@ require 'sinatra/flash'
 require 'sinatra/partial'
 require_relative 'models/space'
 require_relative 'models/user'
+require_relative 'models/email_reg'
 
 class BnB < Sinatra::Base
 
