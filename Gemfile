@@ -9,6 +9,8 @@ ruby '2.3.1'
   gem 'sinatra-flash'
   gem 'sinatra-partial'
   gem 'pony'
+  gem 'stripe'
+  gem 'envyable'
 
 group :test do
   gem 'rspec'

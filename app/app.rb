@@ -5,19 +5,26 @@ require_relative 'data_mapper_setup'
 require 'sinatra/flash'
 require 'sinatra/partial'
 require 'pony'
+require 'envyable'
+require 'stripe'
 require_relative 'models/space'
 require_relative 'models/user'
 require_relative 'models/email'
 
 class BnB < Sinatra::Base
-
   use Rack::MethodOverride
   enable :sessions
+  set :session_secret, 'super secret'
   register Sinatra::Flash
   register Sinatra::Partial
-  set :session_secret, 'super secret'
   set :partial_template_engine, :erb
   enable :partial_underscores
+
+# --Stripe information + setting private keys with Envyable --
+  Envyable.load('config/env.yml', 'test')
+  set :publishable_key, ENV['PUBLISHABLE_KEY_TEST']
+  set :secret_key, ENV['SECRET_KEY_TEST']
+  Stripe.api_key = settings.secret_key
 
   def current_user
     @current_user ||= User.get(session[:user_id])
@@ -143,7 +150,7 @@ class BnB < Sinatra::Base
 
   post '/request/new' do
     session[:check_in] = Date.parse(params[:check_in])
-    session[:check_out] = Date.parse(params[:check_in])
+    session[:check_out] = Date.parse(params[:check_out])
     session[:space_id] = params[:space_id]
     redirect '/request/finalise'
   end
@@ -157,16 +164,45 @@ class BnB < Sinatra::Base
     @check_in = session[:check_in]
     @check_out = session[:check_out]
     @space = Space.get(session[:space_id])
-    erb :finalise
+    session[:price] = @space.calculate_price(@check_in, @check_out)
+    @price = session[:price]
+    erb :'finalise+pay'
   end
 
-  get '/request/confirmation' do
+  # -- PAYMENTS --
+
+  post '/charge' do
+    @amount = (session[:price]*100)
+
+    customer = Stripe::Customer.create(
+      :email         => 'customer@example.com',
+      :source        => params[:stripeToken]
+    )
+
+    charge = Stripe::Charge.create(
+      :amount        => @amount,
+      :description   => 'Sinatra Charge',
+      :currency      => 'usd',
+      :customer      => customer.id
+    )
+
     Booking.create(check_in: session[:check_in],
                    check_out: session[:check_out],
                    status: "unconfirmed",
                    space: Space.get(session[:space_id]),
-                   user: current_user)
-    redirect '/requests'
+                   user: current_user,
+                   price: @amount
+                   )
+    redirect 'payment/successful'
+  end
+
+  get '/payment/successful' do
+    @price = session[:price]
+    erb :charge
+  end
+
+  error Stripe::CardError do
+    env['sinatra.error'].message
   end
 
   # -- BOOKINGS --
