@@ -1,19 +1,16 @@
 MAKERS BnB Challenge
 
 ABOUT:
-The challenge is to build an AirBnB clone ("Makers AirBnB") utilising Ruby Sinatra and Capybara (testing).
+The challenge is to build an AirBnB clone ("Makers AirBnB") utilising Ruby Sinatra and Rspec Capybara (testing).
 
 RUN:
 Command line: rackup
 
 SCREENSHOTS:
 
-	
-One line below should be what you looking for
-
-if your file is in repository
-
 ![ScreenShot] (https://cloud.githubusercontent.com/assets/16445911/21467380/434a3688-c9e3-11e6-8f61-5a013100b001.png)
+
+![ScreenShot] (https://cloud.githubusercontent.com/assets/16445911/21467385/68245b6e-c9e3-11e6-8da5-d074df54f412.png)
 
 
 USER STORIES:
@@ -43,10 +40,6 @@ USER STORIES:
   As someone who has just signed up, so I feel confident that my sign-up has gone through, I want to receive an email confirmation of my sign-up.
 
   As a signed-up User who has booked, so I feel confident that my booking has gone through, I want to receive an email confirmation of my booking.
-
-
-TESTING:
-RSpec was utilised for testing purposes
 
 
 AUTHORS:
