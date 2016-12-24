@@ -12,6 +12,8 @@ SCREENSHOTS:
 
 ![ScreenShot] (https://cloud.githubusercontent.com/assets/16445911/21467385/68245b6e-c9e3-11e6-8da5-d074df54f412.png)
 
+![ScreenShot] (https://cloud.githubusercontent.com/assets/16445911/21467379/3b985ef6-c9e3-11e6-9829-76387313687c.png)
+
 
 USER STORIES:
 
