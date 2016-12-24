@@ -1,5 +1,4 @@
-Makers BnB
-
+MAKERS BnB Challenge
 
 ABOUT:
 The challenge is to build an AirBnB clone ("Makers AirBnB") utilising Ruby Sinatra and Capybara (testing).
@@ -8,6 +7,13 @@ RUN:
 Command line: rackup
 
 SCREENSHOTS:
+
+	
+One line below should be what you looking for
+
+if your file is in repository
+
+![ScreenShot] (https://cloud.githubusercontent.com/assets/16445911/21467380/434a3688-c9e3-11e6-8f61-5a013100b001.png)
 
 
 USER STORIES:
