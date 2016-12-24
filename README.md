@@ -2,7 +2,12 @@ Makers BnB
 
 
 ABOUT:
-The challenge is to build an AirBnB clone ("Makers AirBnB")
+The challenge is to build an AirBnB clone ("Makers AirBnB") utilising Ruby Sinatra and Capybara (testing).
+
+RUN:
+Command line: rackup
+
+SCREENSHOTS:
 
 
 USER STORIES:

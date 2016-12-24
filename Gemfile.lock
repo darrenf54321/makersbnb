@@ -147,6 +147,7 @@ DEPENDENCIES
   dm-postgres-adapter
   envyable
   pony
+  rack (< 2.0)
   rake
   rerun
   rspec
